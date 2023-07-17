@@ -1,0 +1,41 @@
+plugins {
+    id 'com.google.protobuf' version '0.8.17'
+    id 'java'
+    id 'idea'
+}
+
+def protocVersion = '3.23.4'
+
+group = 'com.heinunez'
+version = '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+}
+
+dependencies {
+    implementation "com.google.protobuf:protobuf-java:${protocVersion}"
+    implementation "com.google.protobuf:protobuf-java-util:${protocVersion}"
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
